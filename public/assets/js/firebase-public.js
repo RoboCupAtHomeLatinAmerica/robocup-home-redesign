@@ -27,7 +27,7 @@ const app = initializeApp(firebaseConfig, 'public');
 
 const USE_EMULATOR =
   typeof location !== 'undefined' &&
-  (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+  ['localhost', '127.0.0.1', '10.10.0.1'].includes(location.hostname);  // 10.10.0.1 = WireGuard (iPad)
 
 // The two long-polling flags are mutually exclusive — setting both makes the SDK throw
 // at import (perpetual "loading…"). Force it against the emulator (WebChannel is flaky
@@ -44,8 +44,8 @@ export const auth = initializeAuth(app, {
 });
 
 if (USE_EMULATOR) {
-  connectFirestoreEmulator(db, 'localhost', 8080);
-  connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
+  connectFirestoreEmulator(db, location.hostname, 8080);
+  connectAuthEmulator(auth, `http://${location.hostname}:9099`, { disableWarnings: true });
 }
 
 export async function ensureAuth() {

@@ -20,8 +20,9 @@ const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 // localhost → local emulator, deployed → real DB. Decided automatically by hostname so
 // production builds (johaq.github.io) are never affected. Also guarded against the static
 // build step (no `window`), since this module runs at build time via teams.astro / LiveBanner.astro.
-const onLocalhost = typeof window !== 'undefined' &&
-  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+// 10.10.0.1 = this machine's WireGuard address, so an iPad on the VPN can use the local emulator too.
+const EMULATOR_HOSTS = ['localhost', '127.0.0.1', '10.10.0.1'];
+const onLocalhost = typeof window !== 'undefined' && EMULATOR_HOSTS.includes(window.location.hostname);
 
 // Force long-polling against the emulator: the default WebChannel transport is slow and
 // flaky against the local Firestore emulator (causes "client is offline" + multi-second waits).
@@ -38,8 +39,8 @@ export const db = initializeFirestore(app, {
 export const auth = getAuth(app);
 
 if (onLocalhost) {
-  connectFirestoreEmulator(db, 'localhost', 8080);
-  connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
+  connectFirestoreEmulator(db, window.location.hostname, 8080);
+  connectAuthEmulator(auth, `http://${window.location.hostname}:9099`, { disableWarnings: true });
 }
 
 export async function ensureAuth() {

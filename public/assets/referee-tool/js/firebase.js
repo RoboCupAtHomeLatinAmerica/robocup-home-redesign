@@ -26,7 +26,7 @@ const app = initializeApp(firebaseConfig);
 // production (johaq.github.io) is never affected.
 const USE_EMULATOR =
   typeof location !== 'undefined' &&
-  (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+  ['localhost', '127.0.0.1', '10.10.0.1'].includes(location.hostname);  // 10.10.0.1 = WireGuard (iPad)
 
 // Memory cache: avoids all IndexedDB usage. IndexedDB initialization hangs silently
 // on some Safari/iOS versions (empty console, perpetual loading), so we use the same
@@ -52,8 +52,8 @@ export const auth = initializeAuth(app, {
 });
 
 if (USE_EMULATOR) {
-  connectFirestoreEmulator(db, 'localhost', 8080);
-  connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
+  connectFirestoreEmulator(db, location.hostname, 8080);
+  connectAuthEmulator(auth, `http://${location.hostname}:9099`, { disableWarnings: true });
 }
 
 // Used by display, competition (public pages) — signs in anonymously if needed.

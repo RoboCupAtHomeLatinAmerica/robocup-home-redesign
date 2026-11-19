@@ -10,8 +10,8 @@
     "rewrites": []
   },
   "emulators": {
-    "firestore": { "port": 8080 },
-    "auth": { "port": 9099 },
+    "firestore": { "host": "10.10.0.1", "port": 8080 },
+    "auth": { "host": "10.10.0.1", "port": 9099 },
     "ui": { "enabled": true, "port": 4000 },
     "singleProjectMode": true
   }
