@@ -11,12 +11,12 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDGeFlm93CEj4ZZBckdSY41t1lq4gw2Sss",
-  authDomain: "robocup-home.firebaseapp.com",
-  projectId: "robocup-home",
-  storageBucket: "robocup-home.firebasestorage.app",
-  messagingSenderId: "581379577493",
-  appId: "1:581379577493:web:4ab4f7b5ba8fb5ea17ad9c"
+  apiKey: "AIzaSyDZ86N09yQ7vQAXPX23HCP4PFGhozt4wjM",
+  authDomain: "robocupscoresystem.firebaseapp.com",
+  projectId: "robocupscoresystem",
+  storageBucket: "robocupscoresystem.firebasestorage.app",
+  messagingSenderId: "487942139300",
+  appId: "1:487942139300:web:5ca6301b7f5d12b5882531"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -26,7 +26,8 @@ const app = initializeApp(firebaseConfig);
 // production (johaq.github.io) is never affected.
 const USE_EMULATOR =
   typeof location !== 'undefined' &&
-  ['localhost', '127.0.0.1', '10.10.0.1'].includes(location.hostname);  // 10.10.0.1 = WireGuard (iPad)
+  ['localhost', '127.0.0.1', '10.10.0.1'].includes(location.hostname) &&  // 10.10.0.1 = WireGuard (iPad)
+  location.port !== '4322';  // porta 4322 = site de produção (npx astro preview): usa o Firebase real em qualquer host
 
 // Memory cache: avoids all IndexedDB usage. IndexedDB initialization hangs silently
 // on some Safari/iOS versions (empty console, perpetual loading), so we use the same

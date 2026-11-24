@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://RoboCupAtHome.github.io',
+  site: 'https://robocupathomelatinamerica.github.io',
   base: process.env.GITHUB_ACTIONS ? '/robocup-home-redesign' : undefined,
   output: 'static',
   publicDir: './public',   // copies referee-tool pages + assets into dist unchanged

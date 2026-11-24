@@ -6,12 +6,12 @@ import {
 import { getAuth, signInAnonymously, connectAuthEmulator } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDGeFlm93CEj4ZZBckdSY41t1lq4gw2Sss',
-  authDomain: 'robocup-home.firebaseapp.com',
-  projectId: 'robocup-home',
-  storageBucket: 'robocup-home.firebasestorage.app',
-  messagingSenderId: '581379577493',
-  appId: '1:581379577493:web:4ab4f7b5ba8fb5ea17ad9c',
+  apiKey: 'AIzaSyDZ86N09yQ7vQAXPX23HCP4PFGhozt4wjM',
+  authDomain: 'robocupscoresystem.firebaseapp.com',
+  projectId: 'robocupscoresystem',
+  storageBucket: 'robocupscoresystem.firebasestorage.app',
+  messagingSenderId: '487942139300',
+  appId: '1:487942139300:web:5ca6301b7f5d12b5882531',
 };
 
 const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
@@ -22,7 +22,8 @@ const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 // build step (no `window`), since this module runs at build time via teams.astro / LiveBanner.astro.
 // 10.10.0.1 = this machine's WireGuard address, so an iPad on the VPN can use the local emulator too.
 const EMULATOR_HOSTS = ['localhost', '127.0.0.1', '10.10.0.1'];
-const onLocalhost = typeof window !== 'undefined' && EMULATOR_HOSTS.includes(window.location.hostname);
+// Porta 4322 = site de produção (npx astro preview): usa o Firebase real em qualquer host.
+const onLocalhost = typeof window !== 'undefined' && EMULATOR_HOSTS.includes(window.location.hostname) && window.location.port !== '4322';
 
 // Force long-polling against the emulator: the default WebChannel transport is slow and
 // flaky against the local Firestore emulator (causes "client is offline" + multi-second waits).
